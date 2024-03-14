@@ -1,0 +1,18 @@
+# git hub actions ci/cd
+
+---
+name: Checks
+
+on: [push] #push 이벤트 활성화 -> 레퍼지토리에 push를 했을 때 활성화
+
+jobs:
+  test-lint:
+    name: Test and Lint
+    runs-on: ubuntu-20.04 #작업환경
+    steps: #작업단계 아래 3개 -> 3단계
+      - name: Checkout # github 레포에 있는 코드를 가져오는 역할
+        uses: actions/checkout@v2 
+      - name: Test # 테스트 코드 실행
+        run: docker-compose run --rm app sh -c "python manage.py test"
+      - name: Lint
+        run: docker-compose run --rm app sh -c "flake8"
