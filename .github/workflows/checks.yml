@@ -10,6 +10,12 @@ jobs:
     name: Test and Lint
     runs-on: ubuntu-20.04 #작업환경
     steps: #작업단계 아래 3개 -> 3단계
+      - name: Login in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN}}
+
       - name: Checkout # github 레포에 있는 코드를 가져오는 역할
         uses: actions/checkout@v2 
       - name: Test # 테스트 코드 실행
